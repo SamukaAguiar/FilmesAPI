@@ -1,6 +1,13 @@
+using FilmesAPI.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string mySqlConnection = builder.Configuration.GetConnectionString("FilmeConnection");
+
+builder.Services.AddDbContext<FilmeContext>(opt => opt.UseMySql(mySqlConnection, ServerVersion.Parse("8.0.31 MySQL Community Server - GPL")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
